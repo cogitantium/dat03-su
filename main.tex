@@ -1,0 +1,113 @@
+\documentclass[10pt]{report}
+\usepackage[utf8]{inputenc}
+
+%resize chapter-margins (https://tex.stackexchange.com/questions/149757/new-chapter-top-margin-is-large)
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\makeatletter %change catcode to edit package settings
+% \patchcmd{<cmd>}{<search>}{<replace>}{<success>}{<failure>}
+% --- Patch \chapter
+\patchcmd{\@makechapterhead}{50\p@}{\chapheadtopskip}{}{}% Space from top of page to CHAPTER X
+\patchcmd{\@makechapterhead}{20\p@}{\chapheadsep}{}{}% Space between CHAPTER X and CHAPTER TITLE
+\patchcmd{\@makechapterhead}{40\p@}{\chapheadbelowskip}{}{}% Space between CHAPTER TITLE and text
+% --- Patch \chapter*
+\patchcmd{\@makeschapterhead}{50\p@}{\chapheadtopskip}{}{}% Space from top of page to CHAPTER TITLE
+\patchcmd{\@makeschapterhead}{40\p@}{\chapheadbelowskip}{}{}% SPace between CHAPTER TITLE and text
+\makeatother %change catcode back
+% Set new lengths
+\newlength{\chapheadtopskip}\setlength{\chapheadtopskip}{0pt}
+\newlength{\chapheadsep}\setlength{\chapheadsep}{5pt}
+\newlength{\chapheadbelowskip}\setlength{\chapheadbelowskip}{10pt}
+
+%geometry setup 
+\usepackage[paper=a4paper,inner=2cm,outer=2cm]{geometry} %left=4cm,right=2cm would be equivalent
+
+%for custom numbering of sections
+\usepackage{titlesec}
+
+%set numbering to include subsubsections
+\setcounter{secnumdepth}{3}
+%include subsubsections in toc
+\setcounter{tocdepth}{3}
+%set section counter to negative one for zero-indexing chapter numbering
+\setcounter{chapter}{-1}
+
+%for nicer *st, *nd, and *rd
+\usepackage[super]{nth}
+
+%for checkmark symbol
+\usepackage{amssymb}
+
+%enables H placement specifier for figures
+\usepackage{float}
+
+%custom multiline comments
+\usepackage{verbatim}
+
+% Make the standard latex tables look so much better
+\usepackage{array,booktabs}
+
+%clickable toc
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage[
+%  disable, %turn off todonotes
+  colorinlistoftodos, %enable a coloured square in the list of todos
+  textwidth=20mm, %set the width of the todonotes
+  textsize=scriptsize, %size of the text in the todonotes
+  ]{todonotes}
+
+%support for graphics
+\usepackage{graphicx}
+
+%strikethrough markup
+\usepackage[normalem]{ulem}
+
+%shorthand for textbook name
+\newcommand{\ad}{OOA\&D}
+
+\title{System Development (SU)}
+\author{cogitantium}
+\date{Computer Science - \nth{3} semester}
+
+\begin{document}
+%titlepage geometry
+\newgeometry{margin=1in}
+
+% titlepage
+\begin{titlepage}
+    \thispagestyle{empty}
+    \maketitle
+\end{titlepage}
+
+% set twopage margin dimensions after titlepage
+\restoregeometry
+
+
+\tableofcontents
+%comment todolist out before printing, as it will take up a pagebreak
+%\listoftodos
+%\pagebreak
+
+\input{studyregulation.tex}
+\input{lecture01.tex}
+\input{lecture02.tex}
+\input{lecture03.tex}
+\input{lecture04.tex}
+\input{lecture05.tex}
+\input{lecture06.tex}
+\input{lecture07.tex}
+\input{lecture08.tex}
+\input{lecture09.tex}
+\input{lecture10.tex}
+%\input{lecture11.tex}
+\input{lecture12.tex}
+\input{exam2018.tex}
+
+\end{document}
